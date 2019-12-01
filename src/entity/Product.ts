@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 import { Length } from "class-validator";
-  
+import {Order} from "./Order";
+
   @Entity()
   export class Product {
     @PrimaryGeneratedColumn()
@@ -12,6 +13,9 @@ import { Length } from "class-validator";
   
     @Column()
     price: number;
+    
+    @OneToMany(type => Order, order => order.product)
+    orders: Order[];
     
     @Column()
     @CreateDateColumn()
