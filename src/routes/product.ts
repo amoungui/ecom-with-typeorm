@@ -11,7 +11,7 @@ router.get("/", ProductController.listAll);
 // Get one product
 router.get("/:id([0-9]+)", ProductController.getOneById);
 
-//Create a new product
+//Create a new product   
 router.post("/", [checkJwt, checkRole(["ADMIN"])], ProductController.newProduct);
 
 //Edit one product

@@ -1,9 +1,12 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, getConnection } from "typeorm";
 import * as express from "express";
+import * as session from 'express-session';
 import * as bodyParser from "body-parser";
 import * as helmet from "helmet";
 import * as cors from "cors";
+import { TypeormStore,  SessionEntity } from 'typeorm-store';
+import { Session } from './entity/Session';
 import routes from "./routes";
 
 //Connects to the Database -> then starts the express
@@ -16,6 +19,13 @@ createConnection()
     app.use(cors());
     app.use(helmet());
     app.use(bodyParser.json());
+    app.use(session({
+      secret: 'keyboard cat',
+      resave: false,
+      saveUninitialized: true,
+      //cookie: { secure: true }
+      cookie: {maxAge: 180*60*1000}
+    }))    
 
     //Set all routes from routes folder
     app.use("/", routes);

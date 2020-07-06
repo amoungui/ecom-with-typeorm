@@ -9,11 +9,11 @@ class ProductController{
         //Get users from database
         const productRepository = getRepository(Product);
         const products = await productRepository.find({
-          select: ["id", "name", "price"] //
+          select: ["id", "name", "price"]          
         });
-      
+
         //Send the users object
-        res.send(products);
+        res.send(products);   
     };
       
     static getOneById = async (req: Request, res: Response) => {
